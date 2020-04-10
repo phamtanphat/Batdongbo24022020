@@ -12,19 +12,66 @@
 const request = require('request');
 
 
-function getTempCity(cityName) { 
+// function getTempCity(cityName) { 
+//     return new Promise((resolve , reject) => {
+//         const url = `http://api.openweathermap.org/data/2.5/weather?appid=86183a23377ed034aef7aad102f43d64&units=metric&q=${cityName}`
+//         request(url, function (error, response, body) {
+//            if(error) return reject(error)
+//            if((JSON.parse(body).message)) return reject(JSON.parse(body).message)
+//            return resolve(JSON.parse(body).main.temp)
+//         });
+//     })
+ 
+// }
+// getTempCity("phuquoc")
+// .then(data => console.log(data))
+// .catch(error => console.log("loi " +  error))
+
+function cong(a , b) {
     return new Promise((resolve , reject) => {
-        const url = `http://api.openweathermap.org/data/2.5/weather?appid=86183a23377ed034aef7aad102f43d64&units=metric&q=${cityName}`
-        request(url, function (error, response, body) {
-           if(error) return reject(error)
-           if((JSON.parse(body).message)) return reject(JSON.parse(body).message)
-           return resolve(JSON.parse(body).main.temp)
+        const url = `https://pheptinhonline.herokuapp.com/cong/${a}/${b}`
+        request(url,{json : true},function (error, response, body) {
+            if(error) return reject(error)
+            if(!body.success) return reject(body.message)
+            return resolve(body.message)
         });
     })
- 
 }
-getTempCity("phuquoc")
-.then(data => console.log(data))
-.catch(error => console.log("loi " +  error))
+function tru(a , b) {
+    return new Promise((resolve , reject) => {
+        const url = `https://pheptinhonline.herokuapp.com/tru/${a}/${b}`
+        request(url,{json : true},function (error, response, body) {
+            if(error) return reject(error)
+            if(!body.success) return reject(body.message)
+            return resolve(body.message)
+        });
+    })
+}
+function nhan(a , b) {
+    return new Promise((resolve , reject) => {
+        const url = `https://pheptinhonline.herokuapp.com/nhan/${a}/${b}`
+        request(url,{json : true},function (error, response, body) {
+            if(error) return reject(error)
+            if(!body.success) return reject(body.message)
+            return resolve(body.message)
+        });
+    })
+}
+function chia(a , b) {
+    return new Promise((resolve , reject) => {
+        const url = `https://pheptinhonline.herokuapp.com/chia/${a}/${b}`
+        request(url,{json : true},function (error, response, body) {
+            if(error) return reject(error)
+            if(!body.success) return reject(body.message)
+            return resolve(body.message)
+        });
+    })
+}
+
+cong(5,5)
+.then(tong => console.log(tong))
+.catch(error => console.log(error))
+
+
 
 
