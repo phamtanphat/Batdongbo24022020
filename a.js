@@ -31,7 +31,7 @@ function cong(a , b) {
     return new Promise((resolve , reject) => {
         const url = `https://pheptinhonline.herokuapp.com/cong/${a}/${b}`
         request(url,{json : true},function (error, response, body) {
-            if(error) return reject(error)
+            if(error) return reject(new Error("Lỗi do method cong" + error) )
             if(!body.success) return reject(body.message)
             return resolve(body.message)
         });
@@ -68,9 +68,29 @@ function chia(a , b) {
     })
 }
 
-cong(5,5)
-.then(tong => console.log(tong))
-.catch(error => console.log(error))
+// function dientichHinhChuNhat(d , r){
+//     nhan(d , r)
+//     .then(tich => console.log(tich))
+//     .catch(error => console.log(error))
+// }
+// dientichHinhChuNhat(5 , 10);
+
+function chuviHinhChuNhat(d , r) {
+    Promise.all([
+        cong(d , r),
+        nhan(d,2),
+        handleName("hello")
+    ])
+    .then(arrayResult => console.log(arrayResult))
+    .catch(error => console.log(error))
+}
+
+function handleName(key) {
+    return Promise.resolve(key + "abc")
+}
+chuviHinhChuNhat(5 , 10)
+
+
 
 
 
